@@ -1,0 +1,165 @@
+#JavaScript Events Worksheet
+
+##The onclick event
+
+###The onclick event lets you define what happens when a user clicks something on your page.
+
+### Type the following code (don’t copy and paste), and check it out in your browser. If you’ve done it correctly, the div’s text color should change when you click it.
+<div id="mydiv">Click here</div>
+
+<script>
+function changeColor(){
+	document.getElementById('mydiv').style.color = 'red';
+}
+
+document.getElementById('mydiv').onclick = changeColor;
+</script>
+Pay attention to this line in particular:
+document.getElementById('mydiv').onclick = changeColor;
+Get this element from the document ] [ and when you click it ] = [ change the color ];
+You’ll notice the function name is written with NO parentheses at the end. That’s because onclick needs to to know the name of the function to run. You’re just telling it the name, not running it immediately. That’s why you don’t use parentheses there.
+But what happens if you want to use parameters?
+For example, when the user clicks, what if you want to run addNumbers(2,3). The parentheses would force the function to run immediately without waiting for a click, so you’d be stuck.
+Solution:
+Handling an onclick event with an anonymous function
+An anonymous function is a function without a name.
+It’s useful when you want to define a function without actually running it.
+This is perfect for the onclick event because it lets you define which function should run without prematurely running the function.
+An anonymous function looks like this:
+function (){
+	//code goes here
+}
+It’s exactly the same as a regular function definition except the name is deleted. (Spaces don’t matter because there’s no name here, so feel free to remove the space.)
+Here’s a more practical example of an anonymous function. (Type this in and try it in your browser.)
+<div id="mydiv">Click here</div>
+
+<script>
+document.getElementById('mydiv').onclick = function(){
+	// put any code you want to run when the div is clicked
+	document.getElementById('mydiv').style.color = 'red';
+};
+</script>
+If you’ve done it correctly, clicking on the div should turn the text red.
+The key part to remember is this:
+document.getElementById('mydiv').onclick = function(){
+	// put any code you want to run when the div is clicked
+};
+ 
+When you want a flexible onclick event, use an anonymous function. It lets you run any code you want.
+<button id="mybutton">Show sum</button>
+<div id="output"></div>
+
+<script>
+function showSum(a,b){
+	var sum = a+b;
+	document.getElementById('output').innerHTML = 'Sum: '+sum;
+}
+document.getElementById('mybutton').onclick = function(){
+	showSum(3,5);
+};
+</script>
+Exercises
+1.	Type the following example and try it in your browser:
+2.	<div id="mydiv">Click here</div>
+3.	
+4.	<script>
+5.	function changeText(){
+6.		document.getElementById('mydiv').innerHTML = 'new text';
+7.	}
+8.	
+9.	document.getElementById('mydiv').onclick = changeText;
+</script>
+10.	Example:
+document.getElementById('mydiv').onclick = changeText;
+11.	Example:
+12.	document.getElementById('mydiv').onclick = function(){
+13.		// do whatever you want here
+};
+14.	Example:
+document.getElementById('mydiv').onclick = function(){};
+15.	Create a button that, when clicked, turns a div’s background blue.
+16.	Write a function that takes in two numbers as parameters and shows their sum in a span.
+Create a button that will run the function when clicked.
+17.	Create a button that hides a div and another button that shows the div.
+18.	Create a button that shows or hides a div depending on whether it is currently showing. (You’ll want to use an if statement and a className in this one.)
+Remember: Use more than one equals sign when comparing for equality.
+19.	Create a button and a div. The div should have the number 0 displayed inside it.
+Every time the user clicks the button, the number inside the div should increase by 1.
+If the number is 5 or greater, the div should instead say “Game over.”
+
+ 
+The Event Object – Gain More Control Over Your Events
+By now you know how to detect events such as clicks, key presses, and more.
+What if you want to know where on the page someone clicked, which key they pressed, or where they moved their mouse?
+There’s something called the event object that gives you all this info.
+Getting Started
+Copy and paste the following code into a new HTML document:
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="UTF-8">
+</head>
+<body>
+
+
+<script>
+
+</script>
+</body>
+</html>
+For convenience, you can start with this HTML document to type the code from the lesson.
+Remember to put all scripts between the script tags.
+What is the event object and how do you find it?
+Whenever an event happens (like a click or a key press), JavaScript gives you an object with information about that event.
+This is called the event object.
+Type the following script to see how it works:
+window.onclick = function(e){
+	console.log(e);
+};
+Now click anywhere in the browser window and watch the console.
+Notice that each time you click, you get a bunch of data about that click. That data is the event object. You can call it whatever you want, but we’ve just called it “e” because it’s short.
+Quick Note:
+For simplicity, we’re checking when the user clicks anywhere on the window, but this could easily be any other event like a button click, a key press inside a text box, or other things.
+Get the coordinates of a click
+Remember that with objects, you can access their properties. The event object is no different.
+Type the following to get the coordinates of each click:
+window.onclick = function(e){
+	console.log('x = ' + e.pageX);
+	console.log('y = ' + e.pageY);
+};
+Ways you can use this.
+•	Maybe you have a map and you want to place a marker where the user clicks.
+•	Maybe you’re creating web analytics software and you want to record where users click most.
+•	Maybe you’re making a game whose input involves clicking.
+Also, feel free to play around with various events and event object properties.
+Find out which key was pressed
+Type the following to get data about each key press:
+window.onkeydown = function(e){
+	console.log(e);
+	console.log(e.keyCode);
+};
+Here we’re looking at two things:
+•	The event object (all data about this key press)
+•	The pressed key’s code number (“a” gives 65, “d” gives 68, and the up arrow gives 38 for example)
+When you log the event object in your console, you can click on it to see what properties are available.
+Note about keyCode:
+There have been a lot of changes in how key presses are handled, so when you’re making your big site or app, be sure to check compatibility.
+Exercises:
+There’s not really much to memorize here as long as you understand how the event object works, so these exercises are going to be more about experimenting and playing.
+1.	When the user clicks anywhere on the page, show the event object in the console.
+Once you get that to work, try other events and see what happens. Maybe onmousemove or onkeydown or something else.
+Experiment with some of the properties to see what’s available.
+2.	When the user clicks anywhere on the page, display the coordinates of that click in a div.
+3.	Practical mini-project: Place a marker on a map
+Create a page with a map and a destination marker.
+On that page, you should be able to change the position of the destination marker by clicking anywhere on the map.
+Hint:
+You already know how to get the coordinates of a click. The rest of this question is just CSS positioning.
+4.	Practical mini-project: Make a basic moving game character token
+Create a div that’s a small orange square.
+When the user pushes a key anywhere on the page, check the keyCode.
+If the keyCode corresponds to the up arrow, the square should move up 20 pixels. If right arrow, right 20 pixels. Etc.
+If done correctly, you should be able to move this token around the screen.
+For fun, you can replace it with an image of a game character.
+Bonus: What if you want it to move more smoothly?
